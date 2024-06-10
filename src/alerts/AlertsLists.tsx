@@ -29,8 +29,8 @@ interface Borrower {
   debt_to_ebitda: number | undefined;
 }
 
-async function fetchBorrowers(): Promise<Borrower[]> {
-  const response = await fetch("http://localhost:8000/api/v1/borrowers", {
+async function fetchAlerts(): Promise<Borrower[]> {
+  const response = await fetch("http://localhost:8000/api/v1/alerts", {
     method: "GET",
     headers: {
       "Accept": "application/json"
@@ -40,11 +40,11 @@ async function fetchBorrowers(): Promise<Borrower[]> {
   return data || [];
 }
 
-export const BorrowerTable = ({ ramps }: { ramps: any[] }) => {
+export const AlertsTable = ({ ramps }: { ramps: any[] }) => {
   const [data, setData] = useState<any | undefined>([]);
 
   const getData = async () => {
-    const results = await fetchBorrowers();
+    const results = await fetchAlerts();
     setData(results);
   };
 
@@ -55,24 +55,24 @@ export const BorrowerTable = ({ ramps }: { ramps: any[] }) => {
   return (
     <TableContainer>
       <Table variant="simple">
-        <TableCaption>List of borrowers</TableCaption>
+        <TableCaption>List of alerts</TableCaption>
         <Thead>
           <Tr>
-            <Th>borrower_id</Th>
-            <Th>name</Th>
+            <Th>alert_id</Th>
+            <Th>data_item</Th>
+            <Th>operator</Th>
+            <Th>value</Th>
             <Th>last_modified</Th>
-            <Th>total_revenue</Th>
-            <Th>ebitda</Th>
           </Tr>
         </Thead>
         <Tbody>
         {data.map((row: any) => (
             <Tr>
-               <Td>{row.borrower_id}</Td>
-               <Td>{row.name}</Td>
+               <Td>{row.alert_id}</Td>
+               <Td>{row.data_item}</Td>
+               <Td> {row.operator}</Td>
+               <Td> {row.value}</Td>
                <Td> {row.last_modified}</Td>
-               <Td> {row.total_revenue}</Td>
-               <Td> {row.ebitda}</Td>
              </Tr>
         ))}
         </Tbody>
