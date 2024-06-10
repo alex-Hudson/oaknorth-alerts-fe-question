@@ -40,7 +40,7 @@ async function fetchAlerts(): Promise<Borrower[]> {
   return data || [];
 }
 
-export const AlertsTable = ({ ramps }: { ramps: any[] }) => {
+export const AlertsTable = () => {
   const [data, setData] = useState<any | undefined>([]);
 
   const getData = async () => {

@@ -17,9 +17,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: "borrowers",
-        element: <BorrowerTable ramps={[]}></BorrowerTable>,
+        element: <BorrowerTable></BorrowerTable>,
       },
-      { path: "alerts", element: <AlertsTable ramps={[]}></AlertsTable> },
+      { path: "alerts", element: <AlertsTable></AlertsTable> },
     ],
   },
 ]);
