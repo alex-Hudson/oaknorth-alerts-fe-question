@@ -63,6 +63,8 @@ export const BorrowerTable = () => {
             <Th>last_modified</Th>
             <Th>total_revenue</Th>
             <Th>ebitda</Th>
+            <Th>dscr</Th>
+            <Th>debt_to_ebitda</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -73,6 +75,8 @@ export const BorrowerTable = () => {
                <Td> {row.last_modified}</Td>
                <Td> {row.total_revenue}</Td>
                <Td> {row.ebitda}</Td>
+               <Td> {row.dscr}</Td>
+               <Td> {row.debt_to_ebitda}</Td>
              </Tr>
         ))}
         </Tbody>
