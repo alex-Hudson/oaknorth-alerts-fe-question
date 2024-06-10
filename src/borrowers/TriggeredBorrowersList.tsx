@@ -68,7 +68,7 @@ export const TriggeredBorrowerTable = ({
   return (
     <TableContainer>
       <Table variant="simple">
-        <TableCaption>List of triggered borrowers</TableCaption>
+        <TableCaption>List of triggered borrowers for alert {selectedAlert}</TableCaption>
         <Thead>
           <Tr>
             <Th>borrower_id</Th>
