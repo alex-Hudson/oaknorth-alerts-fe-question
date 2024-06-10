@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import {
   Link,
   Box,
@@ -33,14 +33,23 @@ async function fetchAlerts(): Promise<Borrower[]> {
   const response = await fetch("http://localhost:8000/api/v1/alerts", {
     method: "GET",
     headers: {
-      "Accept": "application/json"
-    }
+      Accept: "application/json",
+    },
   });
   const data = await response.json();
   return data || [];
 }
 
-export const AlertsTable = () => {
+export const AlertsTable = ({
+  setSelectedAlert,
+}: {
+  setSelectedAlert: Dispatch<SetStateAction<any>>;
+}) => {
+  async function handleSetAlert(alert_id: number) {
+    console.log(alert_id)
+    setSelectedAlert(alert_id);
+  }
+
   const [data, setData] = useState<any | undefined>([]);
 
   const getData = async () => {
@@ -63,18 +72,24 @@ export const AlertsTable = () => {
             <Th>operator</Th>
             <Th>value</Th>
             <Th>last_modified</Th>
+            <Th>Select triggered borrowers</Th>
           </Tr>
         </Thead>
         <Tbody>
-        {data.map((row: any) => (
+          {data.map((row: any) => (
             <Tr>
-               <Td>{row.alert_id}</Td>
-               <Td>{row.data_item}</Td>
-               <Td> {row.operator}</Td>
-               <Td> {row.value}</Td>
-               <Td> {row.last_modified}</Td>
-             </Tr>
-        ))}
+              <Td>{row.alert_id}</Td>
+              <Td>{row.data_item}</Td>
+              <Td> {row.operator}</Td>
+              <Td> {row.value}</Td>
+              <Td> {row.last_modified}</Td>
+              <Td>
+                <Button onClick={()=>handleSetAlert(row.alert_id)}>
+                  Select triggered borrowers
+                </Button>
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </TableContainer>

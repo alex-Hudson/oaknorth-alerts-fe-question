@@ -2,8 +2,8 @@ import * as React from "react";
 import { ChakraProvider, Text, theme } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import NavBar from "./nav/NavBar";
-import { BorrowerTable } from "./borrowers/BorrowerList";
-import { AlertsTable } from "./alerts/AlertsLists";
+import { AlertsPage } from "./alerts/AlertsPage";
+import { BorrowerPage } from "./borrowers/BorrowersPage";
 
 const router = createBrowserRouter([
   {
@@ -17,9 +17,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: "borrowers",
-        element: <BorrowerTable></BorrowerTable>,
+        element: <BorrowerPage></BorrowerPage>,
       },
-      { path: "alerts", element: <AlertsTable></AlertsTable> },
+      { path: "alerts", element: <AlertsPage></AlertsPage> },
     ],
   },
 ]);
