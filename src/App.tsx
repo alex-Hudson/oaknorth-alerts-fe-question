@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import NavBar from "./nav/NavBar";
+import { RampTable } from "./borrowers/BorrowerList";
 
 const router = createBrowserRouter([
   {
@@ -25,5 +26,6 @@ const router = createBrowserRouter([
 export const App = () => (
   <ChakraProvider theme={theme}>
     <RouterProvider router={router} />
+    <RampTable ramps={[]}></RampTable>
   </ChakraProvider>
 );

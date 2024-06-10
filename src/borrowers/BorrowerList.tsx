@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import {
   Link,
   Box,
@@ -8,6 +8,15 @@ import {
   TextProps,
   Button,
   Stack,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Table,
 } from "@chakra-ui/react";
 
 interface Borrower {
@@ -21,7 +30,55 @@ interface Borrower {
 }
 
 async function fetchBorrowers(): Promise<Borrower[]> {
-  const response = await fetch("/api/borrowers");
+  const response = await fetch("http://localhost:8000/api/v1/borrowers", {
+    // mode: "no-cors",
+    method: "GET",
+    headers: {
+      "Accept": "application/json"
+    }
+  });
   const data = await response.json();
-  return data;
+  return data || [];
 }
+
+export const RampTable = ({ ramps }: { ramps: any[] }) => {
+  const [data, setData] = useState<any | undefined>(undefined);
+
+  const getData = async () => {
+    const results = await fetchBorrowers();
+    setData(results);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <TableContainer>
+      <Table variant="simple">
+        <TableCaption>Imperial to metric conversion factors</TableCaption>
+        <Thead>
+          <Tr>
+            <Th>borrower_id</Th>
+            <Th>name</Th>
+            <Th>last_modified</Th>
+            <Th>total_revenue</Th>
+            <Th>ebitda</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+        {data.map((row: any) => (
+            <Tr>
+               <Td>{row.borrower_id}</Td>
+               <Td>{row.name}</Td>
+               <Td> {row.last_modified}</Td>
+               <Td> {row.total_revenue}</Td>
+               <Td> {row.ebitda}</Td>
+
+             </Tr>
+        ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
+  );
+};
