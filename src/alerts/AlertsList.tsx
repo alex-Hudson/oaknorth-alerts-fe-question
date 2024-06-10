@@ -61,6 +61,14 @@ export const AlertsTable = ({
     getData();
   }, []);
 
+  const handleDeleteAlert = async (alert_id: number) => {
+    await fetch(`http://localhost:8000/api/v1/alerts/${alert_id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+  }
   return (
     <TableContainer>
       <Table variant="simple">
@@ -73,6 +81,8 @@ export const AlertsTable = ({
             <Th>value</Th>
             <Th>last_modified</Th>
             <Th>Select triggered borrowers</Th>
+            <Th>Delete alert</Th>
+
           </Tr>
         </Thead>
         <Tbody>
@@ -86,6 +96,11 @@ export const AlertsTable = ({
               <Td>
                 <Button onClick={()=>handleSetAlert(row.alert_id)}>
                   Select triggered borrowers
+                </Button>
+              </Td>
+              <Td>
+                <Button onClick={() => handleDeleteAlert(row.alert_id)}>
+                  Delete alert
                 </Button>
               </Td>
             </Tr>
