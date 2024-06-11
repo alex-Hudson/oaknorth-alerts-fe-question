@@ -37,7 +37,7 @@ async function postBorrower(body: Borrower): Promise<Borrower[]> {
     method: "POST",
     headers: {
       Accept: "application/json",
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   });
@@ -45,21 +45,23 @@ async function postBorrower(body: Borrower): Promise<Borrower[]> {
   return data || [];
 }
 
-
-
 export const AddNewBorrower = () => {
-  const [newBorrower, setNewBorrower] = useState<any | undefined>(
-    {name:"", total_revenue: 0, ebitda: 0, dscr: 0, debt_to_ebitda: 0}
-  );
+  const [newBorrower, setNewBorrower] = useState<any | undefined>({
+    name: "",
+    total_revenue: 0,
+    ebitda: 0,
+    dscr: 0,
+    debt_to_ebitda: 0,
+  });
 
   const handleChange = (key, value) => {
     newBorrower[key] = value;
   };
 
   async function handlePostNewBorrower() {
-    console.log(newBorrower)
-    postBorrower(newBorrower)
-}
+    console.log(newBorrower);
+    postBorrower(newBorrower);
+  }
   return (
     <TableContainer>
       <Table variant="simple">
@@ -76,19 +78,42 @@ export const AddNewBorrower = () => {
         <Tbody>
           <Tr>
             <Td>
-              <Input placeholder="name" onChange={(event)=> handleChange("name", event.target.value)}></Input>
+              <Input
+                placeholder="name"
+                onChange={(event) => handleChange("name", event.target.value)}
+              ></Input>
             </Td>
             <Td>
-              <Input placeholder="total_revenue" onChange={(event) => handleChange("total_revenue",toNumber(event.target.value))}></Input>
+              <Input
+                placeholder="total_revenue"
+                onChange={(event) =>
+                  handleChange("total_revenue", toNumber(event.target.value))
+                }
+              ></Input>
             </Td>
             <Td>
-              <Input placeholder="ebitda" onChange={(event) => handleChange("ebitda",toNumber(event.target.value))}></Input>
+              <Input
+                placeholder="ebitda"
+                onChange={(event) =>
+                  handleChange("ebitda", toNumber(event.target.value))
+                }
+              ></Input>
             </Td>
             <Td>
-              <Input placeholder="dscr"></Input>
+              <Input
+                placeholder="dscr"
+                onChange={(event) =>
+                  handleChange("dscr", toNumber(event.target.value))
+                }
+              ></Input>
             </Td>
             <Td>
-              <Input placeholder="debt_to_ebitda"></Input>
+              <Input
+                placeholder="debt_to_ebitda"
+                onChange={(event) =>
+                  handleChange("debt_to_ebitda", toNumber(event.target.value))
+                }
+              ></Input>
             </Td>
           </Tr>
         </Tbody>
