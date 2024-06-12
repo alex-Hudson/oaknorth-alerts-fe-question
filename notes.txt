@@ -1,0 +1,12 @@
+- Task: Add triggered alerts table to borrowers page
+
+Steps:
+- Adding endpoint to return borrowers with alert name
+- Add table borrowers with alert name
+
+- Task: Add new borrower page
+
+Steps: 
+- Add href to link borrower name with page
+- Add borrower tab in tab system
+- Add borrower info into tab

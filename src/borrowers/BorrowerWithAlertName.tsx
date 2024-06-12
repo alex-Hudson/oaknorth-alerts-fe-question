@@ -30,6 +30,7 @@ interface Borrower {
 }
 
 async function fetchBorrowers(): Promise<Borrower[]> {
+  // return []
   const response = await fetch("http://localhost:8000/api/v1/borrowers", {
     method: "GET",
     headers: {
@@ -37,10 +38,15 @@ async function fetchBorrowers(): Promise<Borrower[]> {
     },
   });
   const data = await response.json();
+
+  for (const row of data) {
+    row.alert_name = "alert name";
+    row.alert_id = 1;
+  }
   return data || [];
 }
 
-export const BorrowerTable = () => {
+export const BorrowerWithAlertName = () => {
   const [data, setData] = useState<any | undefined>([]);
 
   const getData = async () => {
@@ -52,14 +58,14 @@ export const BorrowerTable = () => {
     getData();
   }, []);
 
-  const handleDeleteBorrower = async (borrower_id: number) => {
-    await fetch(`http://localhost:8000/api/v1/borrowers/${borrower_id}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-  };
+  const handleDismissAlert = async (alert_id: number)=> {
+    const response = await fetch(`http://localhost:8000/api/v1/alerts/${alert_id}/dismiss`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+  }
 
   return (
     <TableContainer>
@@ -67,29 +73,24 @@ export const BorrowerTable = () => {
         <TableCaption>List of borrowers</TableCaption>
         <Thead>
           <Tr>
-            <Th>borrower_id</Th>
             <Th>name</Th>
-            <Th>last_modified</Th>
-            <Th>total_revenue</Th>
             <Th>ebitda</Th>
             <Th>dscr</Th>
-            <Th>debt_to_ebitda</Th>
-            <Th>Delete borrower</Th>
+            <Th>alert name</Th>
+            <Th>action</Th>
           </Tr>
         </Thead>
         <Tbody>
           {data.map((row: any) => (
             <Tr>
-              <Td><Link href={`/borrower/${row.borrower_id}`}>{row.borrower_id}</Link></Td>
               <Td>{row.name}</Td>
-              <Td> {row.last_modified}</Td>
-              <Td> {row.total_revenue}</Td>
               <Td> {row.ebitda}</Td>
               <Td> {row.dscr}</Td>
-              <Td> {row.debt_to_ebitda}</Td>
+              <Td> {row.alert_name}</Td>
               <Td>
-                <Button onClick={() => handleDeleteBorrower(row.borrower_id)}>
-                  Delete Borrower
+                {" "}
+                <Button onClick={() => handleDismissAlert(row.alert_id)}>
+                  Dismiss
                 </Button>
               </Td>
             </Tr>
